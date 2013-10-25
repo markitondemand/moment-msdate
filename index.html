@@ -6,13 +6,10 @@
     <title>moment-msdate.js</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://markitondemand.github.io/DataApis/Resources/bootstrap/bootstrap-2.3.2.css" />
+    <link rel="stylesheet" href="http://markitondemand.github.io/DataApis/Resources/header.css" />
+    <link rel="stylesheet" href="http://markitondemand.github.io/DataApis/Resources/footer.css" />
     <style type="text/css">
-       
-        body {
-            padding-bottom: 85px;
-        }
-
         table {
             font-size: 12px;
         }
@@ -20,59 +17,6 @@
         td { 
             font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
             white-space: nowrap;
-        }
-
-        .view {
-            margin-top:20px;
-        }
-
-        footer {
-            position:fixed;
-            left:0px;
-            bottom:0px;
-            width:100%;
-            border-top:1px solid #1A446B;
-            background-color:#00285F;
-            -webkit-box-shadow: 0 0 7px -2px black;
-            -moz-box-shadow: 0 0 7px -2px black;
-            -ms-box-shadow: 0 0 7px -2px black;
-            -o-box-shadow: 0 0 7px -2px black;
-            box-shadow: 0 0 7px -2px black; 
-            font-size: 10px;
-        }
-
-        footer div.pull-left {
-            margin-top:10px;    
-        }
-
-        footer p {
-            color:#fff;
-            font-size: 10px;
-            margin-bottom:0px;
-        }
-
-        footer ul { margin-bottom:25px; }
-
-        footer li {
-            display:inline;
-        }
-
-        footer a {
-            color:#9CF;
-            padding-right:25px; 
-            display:block;
-            float:left; 
-        }
-
-        footer a:hover {
-            color:#9CF; 
-        }
-
-        footer .logo {
-            background: transparent url("http://dev.markitondemand.com/Content/Images/Branding24Bit.png") no-repeat top right;
-            height:30px;
-            width: 91px;
-            margin-top:20px;
         }
     </style>
     <script type="text/javascript">
@@ -91,6 +35,8 @@
 </head>
 <body>
 
+<script type="text/javascript" src="http://markitondemand.github.io/DataApis/Resources/header.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="span12">
@@ -99,7 +45,7 @@
 
                 <p><a href="http://momentjs.com/">Moment.js</a> is a javascript date library for parsing, validating, manipulating, and formatting dates.</p>
 
-                <h3>Right Now</h3>
+                <h3 class="page-header">Right Now</h3>
                 <p>The time right now as an OLE Date is represented as <span id="todayMS"></span>. 
                     <br>This is equivalent to <span id="todayJS"></span>.
                     <br>
@@ -108,19 +54,20 @@
 
                 <p class="view"><a href="http://github.com/markitondemand/moment-msdate" class="btn btn-primary">View moment-msdate on GitHub</a></p>
 
-                <p class="view"><iframe src="http://ghbtns.com/github-btn.html?user=markitondemand&amp;type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="177px" height="20px"></iframe>
+                <p><iframe src="http://ghbtns.com/github-btn.html?user=markitondemand&amp;type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="177px" height="20px"></iframe>
                 <a href="https://twitter.com/markitondemand" class="twitter-follow-button" data-show-count="false">Follow @markitondemand</a></p>
             </div>
         </div>
     </div>
     <div class="row content">
         <div class="span5">
-            <h3>About</h3>
+            <h3 class="page-header">About</h3>
                 <p>An OLE Automation date, or &ldquo;MSDate&rdquo; as <a href="http://www.markitondemand.com">we</a> call it, is implemented as a floating-point number whose integral component is the number of days before or after midnight, 30 December 1899, and whose fractional component represents the time on that day divided by 24. For example, midnight, 31 December 1899 is represented by 1.0; 6 A.M., 1 January 1900 is represented by 2.25; midnight, 29 December 1899 is represented by -1.0; and 6 A.M., 29 December 1899 is represented by -1.25.</p>
                 <p>Read more <a href="http://msdn.microsoft.com/en-us/library/dt80be78(v=vs.71).aspx">about OLE Automation on MSDN</a> (including <a href="http://msdn.microsoft.com/en-us/library/system.datetime.tooadate.aspx">DateTime.ToOADate</a> and <a href="http://msdn.microsoft.com/en-us/library/system.datetime.fromoadate.aspx">DateTime.FromOADate</a>).</p>
+                <p>Some of <a href="http://dev.markitondemand.com">Market Data APIs</a> use MSDates in their response.</p>
         </div>
         <div class="span7">
-            <h3>Tests</h3>
+            <h3 class="page-header">Tests</h3>
             
             <div id="tests">
 
@@ -129,10 +76,10 @@
     </div>
 </div>
 
-<footer class="footer"><div class="container"><div class="row"><div class="span12"><div class="pull-left"><p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Markit Group Limited. ALL DATA PROVIDED AS IS, WITH NO WARRANTIES. All rights reserved.</p><ul class="unstyled row-fluid"><li><a target="_blank" href="http://www.markit.com/en/about/legal/privacy-policy.page">Privacy Policy</a></li><li><a class="termsButton" target="_blank" href="http://www.markit.com/en/about/legal/terms-of-use.page">Terms of Use</a></li><li><a target="_blank" href="http://www.markit.com/en/about/legal/disclaimer.page">Disclaimer</a></li><li><a target="_blank" href="http://www.markit.com/en/about/contact/contact-us.page">Contact us</a></li></ul></div><div class="pull-right logo"></div></div></div></div></footer>
+<script type="text/javascript" src="http://markitondemand.github.io/DataApis/Resources/footer.js"></script>
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!--https://bitbucket.org/pellepim/jstimezonedetect-->
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 <!--moment-->
