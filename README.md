@@ -50,6 +50,6 @@ This could easily be chained together as:
 
 ## License
 
-Copyright &copy; 2013 Markit On Demand, Inc.
+Copyright &copy; 2014 Markit On Demand, Inc.
 
 The "moment-msdate" Moment.js plugin is licensed under the Apache License, Version 2.0.
