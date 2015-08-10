@@ -1,6 +1,6 @@
 (function() {
 
-	var moment = (typeof require !== "undefined" && require !== null) && !require.amd ? require("moment") : this.moment;
+	var moment = (typeof require !== 'undefined' && require !== null) && !require.amd ? require('moment') : this.moment;
 
 	/**
 	 * To JavaScript date from OLE Automation date
@@ -28,7 +28,7 @@
 		return msDateObj;
 	}
 
-	if ((typeof module !== "undefined" && module !== null ? module.exports : void 0) != null) {
+	if ((typeof module !== 'undefined' && module !== null ? module.exports : void 0) != null) {
 		module.exports = moment;
 	}
 
