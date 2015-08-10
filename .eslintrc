@@ -1,0 +1,11 @@
+{
+	"env": {
+		"mocha": true,
+		"node": true
+	},
+	"rules": {
+		"camelcase": [1, { "properties": "never" }],
+		"eol-last": 0,
+		"quotes": [2, "single"]
+	}
+}
