@@ -9,9 +9,9 @@
 	 * @returns moment
 	 */
 	moment.fromOADate = function(msDate) {
-		var jO = new Date( ((msDate - 25569) * 86400000) );
+		var jO = new Date( ((msDate - 25569) * 86400000) + (msDate >= 0.0 ? 0.5 : -0.5) ); 
 		var tz = jO.getTimezoneOffset();
-		var jO = new Date( ( (msDate-25569 + (tz / (60*24) ) ) * 86400000) );
+		var jO = new Date( ( (msDate-25569 + (tz / (60*24) ) ) * 86400000) + (msDate >= 0.0 ? 0.5 : -0.5) );
 		return moment(jO);
 	};
 
