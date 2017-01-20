@@ -1,10 +1,12 @@
 {
   "name": "moment-msdate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Adds OLE Automation parsing capabilities to Moment.js",
   "main": "moment-msdate.js",
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint ./test ./moment-msdate.js",
+    "mocha": "mocha --check-leaks --reporter=spec ./test",
+    "test": "npm run lint && npm run mocha"
   },
   "repository": {
     "type": "git",
@@ -15,6 +17,20 @@
     "msdate",
     "ole-automation"
   ],
+  "contributors": [
+    {
+      "name": "Brian Baker",
+      "email": "brian.baker@ihsmarkit.com"
+    },
+    {
+      "name": "Frank Martino",
+      "email": "frank.martino@ihsmarkit.com"
+    },
+    {
+      "name": "Michael Lechner",
+      "email": "michael.lechner@ihsmarkit.com"
+    }
+  ],
   "author": "Markit On Demand",
   "license": "Apache-2.0",
   "bugs": {
@@ -22,11 +38,11 @@
   },
   "homepage": "https://github.com/markitondemand/moment-msdate#readme",
   "dependencies": {
-    "moment": "^2.10.6"
+    "moment": "^2.10.6",
+    "moment-timezone": "^0.5.11"
   },
   "devDependencies": {
-    "eslint": "^1.1.0",
-    "mocha": "^2.2.5",
-    "mocha-eslint": "^1.0.0"
+    "eslint": "^3.14.0",
+    "mocha": "^3.2.0"
   }
 }

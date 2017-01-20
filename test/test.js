@@ -41,3 +41,10 @@ describe('moment-msdate', function() {
 	// 	done();
 	// });
 });
+
+describe('moment-msdate: moment.fromOADate', function() {
+	it('should convert an OLE Automation date to a moment with a specified offset to UTC', function(){
+		var date = moment.fromOADate(42754.835023148145, 0);
+		console.log('date', date.format())
+	})
+});
