@@ -1,34 +1,31 @@
 'use strict';
 
-var assert = require('assert'),
-	lint = require('mocha-eslint'),
-	moment = require('../moment-msdate');
-
-lint(['./*.js', './test/*.js']);
+const assert = require('assert');
+const moment = require('../moment-msdate');
 
 describe('moment-msdate', function() {
 	it('should parse an OLE Automation date int', function(done) {
-		var date = moment.fromOADate(41493);
+		const date = moment.fromOADate(41493);
 		assert.equal(date.toString(), 'Wed Aug 07 2013 00:00:00 GMT-0600');
 		done();
 	});
 
 	it('should parse an OLE Automation date double', function(done) {
-		var date = moment.fromOADate(41493.706892280097000);
+		const date = moment.fromOADate(41493.706892280097000);
 		assert.equal(date.toString(), 'Wed Aug 07 2013 16:57:55 GMT-0600');
 		done();
 	});
 
 	it('should convert an empty JavaScript date to an OLE Automation date of 0', function(done) {
-		var date = new Date(1899, 11, 30, 0, 0, 0);
-		var oaDate = moment(date).toOADate();
+		const date = new Date(1899, 11, 30, 0, 0, 0);
+		const oaDate = moment(date).toOADate();
 		assert.equal(oaDate, 0);
 		done();
 	});
 
 	it('should convert a JavaScript date to an OLE Automation date int', function(done) {
-		var date = new Date(2012, 9, 15);
-		var oaDate = moment(date).toOADate();
+		const date = new Date(2012, 9, 15);
+		const oaDate = moment(date).toOADate();
 		assert.equal(oaDate, 41197);
 		done();
 	});
@@ -43,8 +40,8 @@ describe('moment-msdate', function() {
 });
 
 describe('moment-msdate: moment.fromOADate', function() {
-	it('should convert an OLE Automation date to a moment with a specified offset to UTC', function(){
-		var date = moment.fromOADate(42754.835023148145, 0);
-		console.log('date', date.format())
-	})
+	it('should convert an OLE Automation date to a moment with a specified offset to UTC', function() {
+		const date = moment.fromOADate(42754.835023148145, 0);
+		console.log('date', date.format());
+	});
 });

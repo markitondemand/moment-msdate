@@ -1,0 +1,9 @@
+{
+  "env": {
+    "mocha": true
+  },
+  "rules":{
+    // assert.throws doesnt respond to lambda syntax
+    "prefer-arrow-callback": 0
+  }
+}

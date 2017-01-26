@@ -1,11 +1,13 @@
 {
-	"env": {
-		"mocha": true,
-		"node": true
-	},
+  "extends": [
+	"@markit/eslint-config-markit",
+	"@markit/eslint-config-markit/node",
+	"@markit/eslint-config-markit/es6"
+	],
 	"rules": {
-		"camelcase": [1, { "properties": "never" }],
-		"eol-last": 0,
-		"quotes": [2, "single"]
+		"brace-style": [2, "1tbs", { "allowSingleLine": true }],
+		"object-shorthand": 0,
+		"spaced-comment": 0,
+		"no-invalid-this": 0
 	}
 }
