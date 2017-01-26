@@ -52,6 +52,10 @@ This could easily be chained together as:
 
 **Note**: OLE Automation dates are unspecified, meaning they’re based on the local timezone by default.
 
+### fromOADateWithZone()
+
+### toOADateWithZone()
+
 ## License
 
 Copyright &copy; 2014 Markit On Demand, Inc.
