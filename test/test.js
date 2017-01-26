@@ -40,8 +40,27 @@ describe('moment-msdate', function() {
 });
 
 describe('moment-msdate: moment.fromOADate', function() {
-	it('should convert an OLE Automation date to a moment with a specified offset to UTC', function() {
-		const date = moment.fromOADate(42754.835023148145, 0);
-		console.log('date', date.format());
+	it('should convert an OLE Automation date to a moment with a 0 offset to UTC', function() {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADate(42754.835023148145, 0); // UTC
+		assert.equal('2017-01-19T20:02:25.999Z', date.toISOString());
+	});
+
+	it('should convert an OLE Automation date to a moment with a 300 minute offset to UTC', function() {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADate(42754.835023148145, 300); // ET
+		assert.equal('2017-01-20T01:02:25.999Z', date.toISOString());
+	});
+
+	it('should convert an OLE Automation date to a moment with a 360 minute offset to UTC', function() {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADate(42754.835023148145, 360); // CT
+		assert.equal('2017-01-20T02:02:25.999Z', date.toISOString());
+	});
+
+	it('should convert an OLE Automation date to a moment with a 420 minute offset to UTC', function() {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADate(42754.835023148145, 420); // MT
+		assert.equal('2017-01-20T03:02:25.999Z', date.toISOString());
 	});
 });
