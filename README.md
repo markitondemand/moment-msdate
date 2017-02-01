@@ -53,8 +53,14 @@ This could easily be chained together as:
 **Note**: OLE Automation dates are unspecified, meaning they’re based on the local timezone by default.
 
 ### fromOADateWithZone()
+Converts an OLE Automation date to a moment (baking in a timezone if one is supplied) and returns a UTC Moment object instance.
+
+`moment.fromOADateWithZone('42754.835023148145', 'America/Denver');` returns `Fri Jan 20 2017 03:02:25 GMT+0000 (UTC)`
 
 ### toOADateWithZone()
+Converts a moment (with timezone) to an OLE Automation date in UTC.
+
+`moment('2017-01-19T20:02:26.000Z').toOADateWithZone()` returns `42754.835023148145`
 
 ## License
 

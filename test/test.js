@@ -39,7 +39,11 @@ describe('moment-msdate: moment.fromOADate', () => {
 	});
 });
 
-describe('moment-msdate: moment.toOADate', () => {});
+describe('moment-msdate: moment.toOADate', () => {
+	it('return an OLE automation date from a jsDate input', () => {
+
+	});
+});
 
 describe('moment-msdate: moment.fn.toOADate', () => {
 	it('should convert an empty JavaScript date to an OLE Automation date of 0', () => {
@@ -55,6 +59,60 @@ describe('moment-msdate: moment.fn.toOADate', () => {
 	});
 });
 
-describe('moment-msdate: moment.fromOADateWithZone', () => {});
-describe('moment-msdate: moment.toOADateWithZone', () => {});
-describe('moment-msdate: moment.fn.toOADateWithZone', () => {});
+describe('moment-msdate: moment.fromOADateWithZone', () => {
+	it('should convert an OLE automation date with an ET timezone to a utc moment', () => {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADateWithZone('42754.835023148145', 'America/New_York');
+		assert.equal('2017-01-20T01:02:25.999Z', date.toISOString());
+	});
+
+	it('should convert an OLE automation date with a CT timezone to a utc moment', () => {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADateWithZone('42754.835023148145', 'America/Chicago');
+		assert.equal('2017-01-20T02:02:25.999Z', date.toISOString());
+	});
+
+	it('should convert an OLE automation date with a MT timezone to a utc moment', () => {
+		// 1/19/2017 8:02:26 PM
+		const date = moment.fromOADateWithZone('42754.835023148145', 'America/Denver');
+		assert.equal('2017-01-20T03:02:25.999Z', date.toISOString());
+	});
+});
+
+describe('moment-msdate: moment.fn.toOADateWithZone', () => {
+	it('should convert a moment with a UTC offset to a UTC OLE automation date', () => {
+		const momentDate = moment.parseZone('2017-01-19T20:02:26.000Z');
+		const oaDate = momentDate.toOADateWithZone();
+		// 1/19/2017 8:02:26 PM
+		assert.equal(42754.835023148145, oaDate);
+	});
+
+	it('should convert a moment with a ET offset to a UTC OLE automation date', () => {
+		const momentDate = moment.parseZone('2017-01-19T20:02:26-05:00');
+		const oaDate = momentDate.toOADateWithZone();
+		assert.equal(42755.04335648148, oaDate);
+		// 1/20/2017 1:02:26 AM
+	});
+
+	it('should convert a moment with a CT offset to a UTC OLE automation date', () => {
+		const momentDate = moment.parseZone('2017-01-19T20:02:26-06:00');
+		const oaDate = momentDate.toOADateWithZone();
+		assert.equal(42755.085023148145, oaDate);
+		// 1/20/2017 2:02:26 AM
+	});
+
+	it('should convert a moment with a MT offset to a UTC OLE automation date', () => {
+		const momentDate = moment.parseZone('2017-01-19T20:02:26-07:00');
+		const oaDate = momentDate.toOADateWithZone();
+		assert.equal(42755.12668981482, oaDate);
+		// 1/20/2017 3:02:26 AM
+	});
+
+	it('should convert a moment to a UTC OLE automation date if timezone (tz) is set', () => {
+		const momentDate = moment('2017-01-19T20:02:26.000Z');
+		momentDate.tz('America/New_York');
+		const oaDate = momentDate.toOADateWithZone();
+		assert.equal(42754.835023148145, oaDate);
+		// 1/19/2017 8:02:26 PM
+	});
+});

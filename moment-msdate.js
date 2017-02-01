@@ -56,7 +56,7 @@
 	};
 
 	/**
-	* Converts a moment (with timezone) to an OLE Automation date
+	* Converts a moment (with timezone) to an OLE Automation date in UTC
 	* Returns an OLE Automation date in the form of a double
 	*/
 	moment.fn.toOADateWithZone = function() {
