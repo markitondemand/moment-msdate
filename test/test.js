@@ -29,23 +29,20 @@ describe('moment-msdate: moment.fromOADate', () => {
 	});
 });
 
-describe('moment-msdate', function() {
-	it('should parse an OLE Automation date int', function(done) {
-		var date = moment.fromOADate(41493);
+describe('moment-msdate', () => {
+	it('should parse an OLE Automation date int', () => {
+		const date = moment.fromOADate(41493);
 		assert.equal(date.toString().search('Wed Aug 07 2013 00:00:00'), 0);
-		done();
 	});
 
-	it('should parse an OLE Automation date double', function(done) {
-		var date = moment.fromOADate(41493.706892280097000);
+	it('should parse an OLE Automation date double', () => {
+		const date = moment.fromOADate(41493.706892280097000);
 		assert.equal(date.toString().search('Wed Aug 07 2013 16:57:55'), 0);
-		done();
 	});
 
-	it('should handle rounding quirks', function(done) {
-		var date = moment.fromOADate(42681.501388888886);
+	it('should handle rounding quirks', () => {
+		const date = moment.fromOADate(42681.501388888886);
 		assert.equal(date.toString().search('Mon Nov 07 2016 12:02:00'), 0);
-		done();
 	});
 });
 
