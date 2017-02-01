@@ -1,4 +1,4 @@
-# moment-msdate
+# moment-msdate [![Build Status](https://travis-ci.org/markitondemand/moment-msdate.svg?branch=master)](https://travis-ci.org/markitondemand/moment-msdate) [![npm version](https://badge.fury.io/js/moment-msdate.svg)](https://badge.fury.io/js/moment-msdate)
 
 A [Moment.js](http://momentjs.com/) plugin for parsing OLE Automation dates. 
 

@@ -19,9 +19,9 @@
 	 * @returns moment
 	 */
 	moment.fromOADate = function(msDate, offsetToUtcInMinutes) {
-		let jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS));
+		let jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		const tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
-		jO = new Date(((msDate - MS_DAY_OFFSET + (tz / (60 * 24))) * DAY_MILLISECONDS));
+		jO = new Date(((msDate - MS_DAY_OFFSET + (tz / (60 * 24))) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		return moment(jO);
 	};
 
