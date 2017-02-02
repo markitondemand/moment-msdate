@@ -3,3 +3,7 @@ node_modules
 
 #user preferences
 .vscode
+
+# Logs
+logs
+*.log
