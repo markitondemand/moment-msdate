@@ -30,6 +30,10 @@ For exact date _and_ time (time is the value right of the decimal):
 
 `moment.fromOADate(41493.706892280097000)` returns `Wed Aug 07 2013 16:57:55 GMT-0600 (MDT)`
 
+By default moment.fromOADate() uses the server time as the offset to UTC a second argument can be provided that indicates the offset of the OA date to UTC in minutes.
+
+`moment.fromOADate(42754.835023148145, 360)` returns `Fri Jan 20 2017 02:02:25 GMT+0000 (UTC)`
+
 For Moment formatting:
 
 ```
@@ -47,6 +51,16 @@ This could easily be chained together as:
 `moment.fromOADate(41493.706892280097000).format('MMM Do YY); //Aug 7th 13`
 
 **Note**: OLE Automation dates are unspecified, meaning they’re based on the local timezone by default.
+
+### fromOADateWithZone()
+Converts an OLE Automation date to a moment (baking in a timezone if one is supplied) and returns a UTC Moment object instance.
+
+`moment.fromOADateWithZone('42754.835023148145', 'America/Denver');` returns `Fri Jan 20 2017 03:02:25 GMT+0000 (UTC)`
+
+### toOADateWithZone()
+Converts a moment (with timezone) to an OLE Automation date in UTC.
+
+`moment('2017-01-19T20:02:26.000Z').toOADateWithZone()` returns `42754.835023148145`
 
 ## License
 
