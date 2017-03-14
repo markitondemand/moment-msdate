@@ -7,9 +7,10 @@
 	} else if (typeof module === 'object' && module.exports) {
 		module.exports = factory(require('moment'), require('moment-timezone')); // Node
 	} else {
-		factory(root.moment);                                                    // Browser
+		// correct way to load moment-timezone?
+		factory(root.moment, root.moment.tz);                                    // Browser
 	}
-}(this, (moment) => {
+}(this, (moment, momentTimezone) => {
 	const DAY_MILLISECONDS = 86400000;
 	const MINUTE_MILLISECONDS = 60000;
 	const MS_DAY_OFFSET = 25569;
@@ -23,11 +24,11 @@
 		throw new Error(`moment-msdate requires Moment.js >= 2.6.0. You are using Moment.js ${moment.version}. See momentjs.com`);
 	}
 
-	if (!moment.tz) {
+	if (!momentTimezone || !moment.tz) {
 		throw new Error('moment-msdate requires moment-timezone.js. see momentjs.com/timezone');
 	}
 
-	moment.updateLocale('en', { invalidDate: undefined });
+	// moment.updateLocale('en', { invalidDate: undefined }); // needs to move to the users config for moment
 
 	const oaDateToTicks = function(oaDate) {
 		return ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (oaDate >= 0.0 ? 0.5 : -0.5);

@@ -4,15 +4,13 @@ const assert = require('assert');
 const moment = require('../moment-msdate');
 
 describe('moment-msdate', () => {
-	const dateTime = '2015-10-21T16:29:00.000Z';
-
-	console.log('***************************************************');
-	console.log(`*** great scott!! it's ${dateTime} ***`);
-	console.log('***************************************************');
+	console.log('********************************************************');
+	console.log('*** great scott!! it\'s 2015-10-21T16:29:00.000-07:00 ***');
+	console.log('********************************************************');
 
 	describe('moment.fromOADate', () => {
 		it('should convert 42298.6868055556 to 2015-10-21T16:29:00.000Z', () => {
-			assert.equal(moment.fromOADate(42298.6868055556).toISOString(), dateTime);
+			assert.equal(moment.fromOADate(42298.6868055556).toISOString(), '2015-10-21T16:29:00.000Z');
 		});
 
 		it('should have a timezone of utc', () => {
@@ -23,7 +21,7 @@ describe('moment-msdate', () => {
 
 	describe('moment.fromOADateOffsetToUtcByMinutes', () => {
 		it('should convert 42298.6868055556 to 2015-10-21T16:29:00.000Z', () => {
-			assert.equal(moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 0).toISOString(), dateTime);
+			assert.equal(moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 0).toISOString(), '2015-10-21T16:29:00.000Z');
 		});
 
 		it('should convert 42298.6868055556 to 2015-10-21T20:29:00.000Z', () => {
