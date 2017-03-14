@@ -70,11 +70,32 @@ describe('moment-msdate', () => {
 	});
 
 	describe('moment.toOADateFromIso8601String', () => {
+		it('should convert 2015-10-21T16:29:00.000Z to 42298.6868055556', () => {
+			assert.equal(moment.toOADateFromIso8601String('2015-10-21T16:29:00.000Z'), 42298.68680555555);
+		});
 
+		it('should convert 2015-10-21T16:29:00.000-04:00 to 42298.6868055556', () => {
+			assert.equal(moment.toOADateFromIso8601String('2015-10-21T16:29:00.000-04:00'), 42298.853472222225);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-04:00 to 42298.6868055556', () => {
+			assert.equal(moment.toOADateFromIso8601String('2015-10-21T16:29:00.000-05:00'), 42298.89513888889);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-04:00 to 42298.6868055556', () => {
+			assert.equal(moment.toOADateFromIso8601String('2015-10-21T16:29:00.000-06:00'), 42298.93680555555);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-04:00 to 42298.6868055556', () => {
+			assert.equal(moment.toOADateFromIso8601String('2015-10-21T16:29:00.000-07:00'), 42298.978472222225);
+		});
 	});
 
 	describe('moment.fn.toOADate', () => {
-
+		it('should convert 2015-10-21T16:29:00.000Z to 42298.6868055556', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000Z').utc();
+			assert.equal(myMoment.toOADate(), 42298.68680555555);
+		});
 	});
 });
 

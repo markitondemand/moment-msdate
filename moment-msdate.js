@@ -34,6 +34,9 @@
 		return ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (oaDate >= 0.0 ? 0.5 : -0.5);
 	};
 
+	const ticksToOADate = function(milliseconds) {
+		return (milliseconds / DAY_MILLISECONDS) + MS_DAY_OFFSET;
+	};
 	/**
 	 * @description takes an oaDate that is in utc and converts it to a utc moment
 	 *
@@ -77,7 +80,9 @@
 	 * @returns {double}
 	 */
 	moment.toOADateFromIso8601String = function(iso8601String) {
-		return iso8601String;
+		const myMoment = moment(iso8601String).utc();
+		const milliseconds = myMoment.valueOf();
+		return ticksToOADate(milliseconds);
 	};
 
 	/**
@@ -86,7 +91,8 @@
 	 * @returns {double}
 	 */
 	moment.fn.toOADate = function() {
-
+		const milliseconds = this.valueOf();
+		return ticksToOADate(milliseconds);
 	};
 
 	return moment;
