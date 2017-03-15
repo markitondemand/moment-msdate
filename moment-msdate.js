@@ -31,18 +31,8 @@
 		return ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (oaDate >= 0.0 ? 0.5 : -0.5);
 	};
 
-	const ticksToOADate = function(milliseconds) {
-		return (milliseconds / DAY_MILLISECONDS) + MS_DAY_OFFSET;
-	};
-
-	/**
-	 * @description takes an oaDate that is in utc and converts it to a utc moment
-	 *
-	 * @param {double} oaDate
-	 * @returns moment
-	 */
-	moment.fromOADate = function(oaDate) {
-		return moment(oaDateToTicks(oaDate)).utc();
+	const ticksToOADate = function(ticks) {
+		return (ticks / DAY_MILLISECONDS) + MS_DAY_OFFSET;
 	};
 
 	/**
@@ -52,7 +42,7 @@
 	 * @param {string} offsetToUtcInMinutes
 	 * @returns moment
 	 */
-	moment.fromOADateOffsetToUtcByMinutes = function(oaDate, offsetToUtcInMinutes) {
+	const fromOADateOffsetToUtcByMinutes = function(oaDate, offsetToUtcInMinutes) {
 		const offsetInTicks = offsetToUtcInMinutes * MINUTE_MILLISECONDS;
 		const ticks = oaDateToTicks(oaDate);
 		return moment(ticks + offsetInTicks).utc();
@@ -65,22 +55,32 @@
 	 * @param {string} timezone
 	 * @returns moment
 	 */
-	moment.fromOADateOffsetToUtcByTimezone = function(oaDate, timezone) {
+	const fromOADateOffsetToUtcByTimezone = function(oaDate, timezone) {
+		if (!moment.tz.zone(timezone)) { throw new Error('timezone provided is not available in moment-timezone.js', 'moment-msdate.js', 59); }
 		const ticks = oaDateToTicks(oaDate);
 		const offset = moment.tz(timezone).utcOffset() * MINUTE_MILLISECONDS;
 		return moment.tz(ticks - offset, timezone).utc();
 	};
 
 	/**
-	 * @description converts an ISO 8601 date time string to a UTC OLE automation date represented as a double
+	 * @description takes an oaDate that is in utc and converts it to a utc moment or takes an oaDate and an offset to utc and converts it to a utc moment. The offset can be an int representing the offset to utc in minutes or a string indicating the timezone of the oaDate.
 	 *
-	 * @param {string} iso8601String
-	 * @returns {double}
+	 * @param {double} oaDate
+	 * @param {string=} {int=} offset
+	 * @returns moment
 	 */
-	moment.toOADateFromIso8601String = function(iso8601String) {
-		const myMoment = moment(iso8601String).utc();
-		const milliseconds = myMoment.valueOf();
-		return ticksToOADate(milliseconds);
+	moment.fromOADate = function(oaDate, offset) {
+		if (isNaN(parseInt(oaDate, 10))) { throw new TypeError('fromOADate requires an oaDate that is not null or undefined', 'moment-msdate.js', 72); }
+
+		/* no offset */
+		if (!offset) { return fromOADateOffsetToUtcByMinutes(oaDate, 0); }
+
+		/* timezone */
+		const parsedOffset = parseInt(offset, 10);
+		if (isNaN(parsedOffset)) { return fromOADateOffsetToUtcByTimezone(oaDate, offset); }
+
+		/* minutes */
+		return fromOADateOffsetToUtcByMinutes(oaDate, parsedOffset);
 	};
 
 	/**
