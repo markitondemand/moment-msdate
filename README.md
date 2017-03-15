@@ -10,6 +10,8 @@ An OLE Automation date, or "MSDate" as we call it, is implemented as a floating-
 
 Read more [about OLE Automation on MSDN](http://msdn.microsoft.com/en-us/library/dt80be78(v=vs.71).aspx) (including [`DateTime.ToOADate`](http://msdn.microsoft.com/en-us/library/system.datetime.tooadate.aspx) and [`DateTime.FromOADate`](http://msdn.microsoft.com/en-us/library/system.datetime.fromoadate.aspx)).
 
+**Note**: OLE Automation dates are unspecified and they’re based on the local timezone by default. The moment library normalizes all time to UTC and as a result this library will return all values based on UTC time.
+
 ## Usage
 
 ### fromOADate(oaDate)
@@ -62,8 +64,6 @@ momentDate.tz('America/New_York')
 momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
 momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 4:29 PM' (ET)
 ```
-
-**Note**: OLE Automation dates are unspecified and they’re based on the local timezone by default. The moment library normalizes all time to UTC and as a result this library will return all values based on UTC time.
 
 ## License
 
