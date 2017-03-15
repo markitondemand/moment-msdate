@@ -14,13 +14,11 @@ Read more [about OLE Automation on MSDN](http://msdn.microsoft.com/en-us/library
 
 ## Usage
 
-### fromOADate(oaDate)
+### fromOADate(oaDate, [offset])
 
 Convert an OA date to a `moment`:
 
 `moment.fromOADate(42298.6868055556)` returns `2015-10-21T16:29:00.000Z`
-
-### fromOADate(oaDate, offset)
 
 Convert an OA date with a known offset to UTC to a `moment` in UTC time
 ```
