@@ -1,6 +1,6 @@
 # moment-msdate [![Build Status](https://travis-ci.org/markitondemand/moment-msdate.svg?branch=master)](https://travis-ci.org/markitondemand/moment-msdate) [![npm version](https://badge.fury.io/js/moment-msdate.svg)](https://badge.fury.io/js/moment-msdate)
 
-A [Moment.js](http://momentjs.com/) plugin for parsing OLE Automation dates. 
+A [Moment.js](http://momentjs.com/) and [Moment-timezone.js](http://momentjs.com/timezone) plugin for parsing OLE Automation dates.
 
 Visit [http://markitondemand.github.io/moment-msdate/](http://markitondemand.github.io/moment-msdate/) for more information and examples.
 
@@ -12,55 +12,59 @@ Read more [about OLE Automation on MSDN](http://msdn.microsoft.com/en-us/library
 
 ## Usage
 
-### toOADate()
+### fromOADate(oaDate)
 
-Convert a `moment` to an OA date:
+Convert an OA date to a `moment`:
 
-`moment().toOADate();`
+`moment.fromOADate(42298.6868055556)` returns `2015-10-21T16:29:00.000Z`
 
-This API returns a floating-point number (the OA date), so once the conversion has been made, you no longer have a `moment` object.
+### fromOADateOffsetToUtcByMinutes(oaDate, offsetToUtcInMinutes)
 
-### fromOADate()
+Convert an OA date with a known offset to UTC to a `moment` in UTC time
 
-Convert an OA date to a `moment` (or to a JavaScript date):
+`moment.fromOADate(42298.6868055556, 240)` returns `2015-10-21T20:29:00.000Z`
 
-`moment.fromOADate(41493)` returns `Wed Aug 07 2013 00:00:00 GMT-0600 (MDT)`
+### fromOADateOffsetToUtcByTimezone(oaDate, timezone)
 
-For exact date _and_ time (time is the value right of the decimal):
-
-`moment.fromOADate(41493.706892280097000)` returns `Wed Aug 07 2013 16:57:55 GMT-0600 (MDT)`
-
-By default moment.fromOADate() uses the server time as the offset to UTC a second argument can be provided that indicates the offset of the OA date to UTC in minutes.
-
-`moment.fromOADate(42754.835023148145, 360)` returns `Fri Jan 20 2017 02:02:25 GMT+0000 (UTC)`
+`moment.fromOADate(42298.6868055556, 'America/New_York')` returns `2015-10-21T20:29:00.000Z`
 
 For Moment formatting:
 
 ```
-//convert OA date into Moment (JavaScript date)
-var momentDate = moment.fromOADate(41493.706892280097000);
+// convert OA date into Moment (OA Date is assumed to be in UTC)
+var momentDate = moment.fromOADate(42298.6868055556);
 
-//use Moment's awesomeness
-var formattedDate = momentDate.format('MMM Do YY);
+// if OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation in minutes
+var momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 240)
+momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
+momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 8:29 PM' (UTC)
 
-//formattedDate === "Aug 7th 13"
+// if OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation as a timezone
+var momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 'America/New_York')
+momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
+momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 8:29 PM' (UTC)
+
+// once the date is in UTC it can than easily be converted to any other timezone using moment-timezone.js
+var momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 240)
+momentDate.tz('America/New_York')
+momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
+momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 4:29 PM' (ET)
+
 ```
 
-This could easily be chained together as:
+**Note**: OLE Automation dates are unspecified and they’re based on the local timezone by default. The moment library normalizes all time to UTC and as a result this library will return all values based on UTC time.
 
-`moment.fromOADate(41493.706892280097000).format('MMM Do YY); //Aug 7th 13`
+### toOADate()
 
-**Note**: OLE Automation dates are unspecified, meaning they’re based on the local timezone by default.
+Convert a `moment` to a floating point OA date in UTC:
 
-### fromOADateWithZone()
-Converts an OLE Automation date to a moment (baking in a timezone if one is supplied) and returns a UTC Moment object instance.
+`moment().toOADate();`
 
-`moment.fromOADateWithZone('42754.835023148145', 'America/Denver');` returns `Fri Jan 20 2017 03:02:25 GMT+0000 (UTC)`
+### toOADateFromIso8601String(iso8601String)
 
-### toOADateWithZone()
-Converts a moment (with timezone) to an OLE Automation date in UTC.
+Convert an ISO 8601 String to a floating point OA date in UTC
 
-`moment('2017-01-19T20:02:26.000Z').toOADateWithZone()` returns `42754.835023148145`
+`moment.toOADateFromIso8601String(iso8601String)`
 
 ## License
 
