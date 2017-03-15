@@ -4,7 +4,7 @@
   "description": "Adds OLE Automation parsing capabilities to Moment.js",
   "main": "moment-msdate.js",
   "scripts": {
-    "lint": "eslint ./test ./moment-msdate.js",
+    "lint": "eslint ./test ./moment-msdate.js !./node-modules",
     "mocha": "mocha --check-leaks --reporter=spec ./test",
     "test": "npm run lint && npm run mocha"
   },
