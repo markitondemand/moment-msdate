@@ -19,7 +19,6 @@
 	const major = +momentVersion[0];
 	const minor = +momentVersion[1];
 
-	// Moment.js version check
 	if (major < 2 || (major === 2 && minor < 6)) {
 		throw new Error(`moment-msdate requires Moment.js >= 2.6.0. You are using Moment.js ${moment.version}. See momentjs.com`);
 	}
@@ -28,8 +27,6 @@
 		throw new Error('moment-msdate requires moment-timezone.js. see momentjs.com/timezone');
 	}
 
-	// moment.updateLocale('en', { invalidDate: undefined }); // needs to move to the users config for moment
-
 	const oaDateToTicks = function(oaDate) {
 		return ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (oaDate >= 0.0 ? 0.5 : -0.5);
 	};
@@ -37,6 +34,7 @@
 	const ticksToOADate = function(milliseconds) {
 		return (milliseconds / DAY_MILLISECONDS) + MS_DAY_OFFSET;
 	};
+
 	/**
 	 * @description takes an oaDate that is in utc and converts it to a utc moment
 	 *
