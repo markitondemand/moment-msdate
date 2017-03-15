@@ -1,6 +1,6 @@
 # moment-msdate [![Build Status](https://travis-ci.org/markitondemand/moment-msdate.svg?branch=master)](https://travis-ci.org/markitondemand/moment-msdate) [![npm version](https://badge.fury.io/js/moment-msdate.svg)](https://badge.fury.io/js/moment-msdate)
 
-A [Moment.js](http://momentjs.com/) and [Moment-timezone.js](http://momentjs.com/timezone) plugin for parsing OLE Automation dates.
+A [moment.js](http://momentjs.com/) and [moment-timezone.js](http://momentjs.com/timezone) plugin for parsing OLE Automation dates.
 
 Visit [http://markitondemand.github.io/moment-msdate/](http://markitondemand.github.io/moment-msdate/) for more information and examples.
 
@@ -21,11 +21,20 @@ Convert an OA date to a `moment`:
 ### fromOADate(oaDate, offset)
 
 Convert an OA date with a known offset to UTC to a `moment` in UTC time
+```
+moment.fromOADate(42298.6868055556, 240) returns 2015-10-21T20:29:00.000Z
+moment.fromOADate(42298.6868055556, 'America/New_York') returns `2015-10-21T20:29:00.000Z
+```
 
-`moment.fromOADate(42298.6868055556, 240)` returns `2015-10-21T20:29:00.000Z`
-`moment.fromOADate(42298.6868055556, 'America/New_York')` returns `2015-10-21T20:29:00.000Z`
+### toOADate()
 
-For Moment formatting:
+Convert a `moment` to a floating point OA date in UTC:
+```
+const momentDate = moment('2015-10-21T16:29:00.000-07:00')
+moment.toOADate() returns 42298.978472222225
+```
+
+### Example Moment Formatting:
 
 Convert OA date into Moment (OA Date is assumed to be in UTC)
 ```
@@ -55,14 +64,6 @@ momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 4:29 PM' (ET)
 ```
 
 **Note**: OLE Automation dates are unspecified and they’re based on the local timezone by default. The moment library normalizes all time to UTC and as a result this library will return all values based on UTC time.
-
-### toOADate()
-
-Convert a `moment` to a floating point OA date in UTC:
-```
-const momentDate = moment('2015-10-21T16:29:00.000-07:00')
-moment.toOADate() returns 42298.978472222225
-```
 
 ## License
 
