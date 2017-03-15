@@ -30,26 +30,26 @@ Convert an OA date with a known offset to UTC to a `moment` in UTC time
 
 For Moment formatting:
 
-
-convert OA date into Moment (OA Date is assumed to be in UTC)
+Convert OA date into Moment (OA Date is assumed to be in UTC)
 ```
 const momentDate = moment.fromOADate(42298.6868055556);
 ```
-if OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation in minutes
+
+If OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation in minutes
 ```
 const momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 240)
 momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
 momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 8:29 PM' (UTC)
 ```
 
-if OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation as a timezone
+If OA date is not in UTC and the offset to UTC is known it can be specified during the moment creation as a timezone
 ```
 const momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 'America/New_York')
 momentDate.toISOString() returns '2015-10-21T20:29:00.000Z' (UTC)
 momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 8:29 PM' (UTC)
 ```
 
-once the date is in UTC it can than easily be converted to any other timezone using moment-timezone.js
+Once the date is in UTC it can than easily be converted to any other timezone using moment-timezone.js
 ```
 const momentDate = moment.fromOADateOffsetToUtcByMinutes(42298.6868055556, 240)
 momentDate.tz('America/New_York')
@@ -62,7 +62,6 @@ momentDate.format('LLLL') returns 'Wednesday, October 21, 2015 4:29 PM' (ET)
 ### toOADate()
 
 Convert a `moment` to a floating point OA date in UTC:
-
 ```
 const momentDate = moment('2015-10-21T16:29:00.000-07:00')
 moment.toOADate() returns 42298.978472222225
