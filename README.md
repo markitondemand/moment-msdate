@@ -71,8 +71,9 @@ moment.toOADate() returns 42298.978472222225
 ### toOADateFromIso8601String(iso8601String)
 
 Convert an ISO 8601 String to a floating point OA date in UTC
-
-`moment.toOADateFromIso8601String(iso8601String)`
+```
+moment.toOADateFromIso8601String('2015-10-21T16:29:00.000-07:00') returns 42298.978472222225
+```
 
 ## License
 
