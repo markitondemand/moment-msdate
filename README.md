@@ -31,7 +31,7 @@ moment.fromOADate(42298.6868055556, 'America/New_York') returns `2015-10-21T20:2
 Convert a `moment` to a floating point OA date in UTC:
 ```
 const momentDate = moment('2015-10-21T16:29:00.000-07:00')
-moment.toOADate() returns 42298.978472222225
+momentDate.toOADate() returns 42298.978472222225
 ```
 
 ### Example Moment Formatting:
