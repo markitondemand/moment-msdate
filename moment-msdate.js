@@ -7,7 +7,6 @@
 	} else if (typeof module === 'object' && module.exports) {
 		module.exports = factory(require('moment'), require('moment-timezone')); // Node
 	} else {
-		// correct way to load moment-timezone?
 		factory(root.moment, root.moment.tz);                                    // Browser
 	}
 }(this, (moment, momentTimezone) => {
