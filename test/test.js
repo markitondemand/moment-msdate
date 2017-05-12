@@ -70,19 +70,19 @@ describe('moment-msdate: moment.fromOADateWithZone', () => {
 	it('should convert an OLE automation date with an ET timezone to a utc moment', () => {
 		// 1/19/2017 8:02:26 PM
 		const date = moment.fromOADateWithZone('42754.835023148145', 'America/New_York');
-		assert.equal('2017-01-20T01:02:25.999Z', date.toISOString());
+		assert.equal(`2017-01-20T0${date.isDST() ? 1 : 0}:02:25.999Z`, date.toISOString());
 	});
 
 	it('should convert an OLE automation date with a CT timezone to a utc moment', () => {
 		// 1/19/2017 8:02:26 PM
 		const date = moment.fromOADateWithZone('42754.835023148145', 'America/Chicago');
-		assert.equal('2017-01-20T02:02:25.999Z', date.toISOString());
+		assert.equal(`2017-01-20T0${date.isDST() ? 2 : 1}:02:25.999Z`, date.toISOString());
 	});
 
 	it('should convert an OLE automation date with a MT timezone to a utc moment', () => {
 		// 1/19/2017 8:02:26 PM
 		const date = moment.fromOADateWithZone('42754.835023148145', 'America/Denver');
-		assert.equal('2017-01-20T03:02:25.999Z', date.toISOString());
+		assert.equal(`2017-01-20T0${date.isDST() ? 3 : 2}:02:25.999Z`, date.toISOString());
 	});
 });
 
