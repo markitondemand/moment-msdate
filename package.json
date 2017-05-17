@@ -1,6 +1,6 @@
 {
   "name": "moment-msdate",
-  "version": "2.0.0",
+  "version": "2.0.1-0",
   "description": "Adds OLE Automation parsing capabilities to Moment.js",
   "main": "moment-msdate.js",
   "scripts": {
