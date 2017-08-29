@@ -9,7 +9,7 @@
 	} else {
 		factory(root.moment, root.moment.tz);                                    // Browser
 	}
-}(this, (moment, momentTimezone) => {
+}(this, function(moment, momentTimezone) {
 	const DAY_MILLISECONDS = 86400000;
 	const MINUTE_MILLISECONDS = 60000;
 	const MS_DAY_OFFSET = 25569;
