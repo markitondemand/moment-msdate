@@ -1,6 +1,16 @@
-'use strict';
+(function(root, factory) {
 
-(function() {
+	'use strict';
+
+	if (typeof define === 'function' && define.amd) {
+		define(['moment'], factory);
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory(require('moment'));
+	} else {
+		factory(root.moment);
+	}
+
+}(this, (moment) => {
 
 	/**
 	* Constants
@@ -8,8 +18,6 @@
 	const DAY_MILLISECONDS = 86400000;
 	const MINUTE_MILLISECONDS = 60000;
 	const MS_DAY_OFFSET = 25569;
-
-	const moment = (typeof require !== 'undefined' && require !== null) && !require.amd ? require('moment-timezone') : this.moment;
 
 	/**
 	 * @description To JavaScript date from OLE Automation date
@@ -68,4 +76,4 @@
 		module.exports = moment;
 	}
 
-}).call(this);
+}));
