@@ -1,4 +1,4 @@
-(function (root, factory) {
+(function(root, factory) {
 
 	'use strict';
 
@@ -10,7 +10,7 @@
 		factory(root.moment);
 	}
 
-}(this, function (moment) {
+}(this, (moment) => {
 
 	/**
 	* Constants
@@ -26,8 +26,8 @@
 	 * @param offsetToUtcInMinutes An offset from the msDate to UTC. If not supplied the offset from the system timezone will be used.
 	 * @returns moment
 	 */
-	moment.fromOADate = function (msDate, offsetToUtcInMinutes) {
-		var jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
+	moment.fromOADate = function(msDate, offsetToUtcInMinutes) {
+		let jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		const tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
 		jO = new Date((((msDate - MS_DAY_OFFSET) + (tz / (60 * 24))) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		return moment(jO);
@@ -39,7 +39,7 @@
 	 * @param jsDate A JavaScript date object to convert to OA Date. Defaults to existing moment instance or new Date
 	 * @returns Floating-point number, e.g., 41502.558798240745
 	 */
-	moment.fn.toOADate = function (jsDateInput) {
+	moment.fn.toOADate = function(jsDateInput) {
 		const jsDate = jsDateInput || this._d || new Date();
 		const timezoneOffset = jsDate.getTimezoneOffset() / (60 * 24);
 		const msDateObj = (jsDate.getTime() / DAY_MILLISECONDS) + (MS_DAY_OFFSET - timezoneOffset);
@@ -54,7 +54,7 @@
 	* Converts an OLE Automation date to a moment (baking in a timezone if one is supplied)
 	* Returns a UTC Moment object instance
 	*/
-	moment.fromOADateWithZone = function (msDate, timeZone) {
+	moment.fromOADateWithZone = function(msDate, timeZone) {
 		const jsTicks = (msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS;
 		const offset = moment.tz(timeZone).utcOffset() * MINUTE_MILLISECONDS;
 		if (timeZone) {
@@ -67,7 +67,7 @@
 	* Converts a moment (with timezone) to an OLE Automation date in UTC
 	* Returns an OLE Automation date in the form of a double
 	*/
-	moment.fn.toOADateWithZone = function () {
+	moment.fn.toOADateWithZone = function() {
 		const nMsDate = (this.valueOf() / DAY_MILLISECONDS) + MS_DAY_OFFSET;
 		return nMsDate;
 	};
