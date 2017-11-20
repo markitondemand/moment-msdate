@@ -72,8 +72,5 @@
 		return nMsDate;
 	};
 
-	if ((typeof module !== 'undefined' && module !== null ? module.exports : undefined) !== null) {
-		module.exports = moment;
-	}
-
+	return moment;
 }));
