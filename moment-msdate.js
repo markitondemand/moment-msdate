@@ -10,7 +10,7 @@
 		factory(root.moment);
 	}
 
-}(this, (moment) => {
+}(this, function(moment) {
 
 	/**
 	* Constants
