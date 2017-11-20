@@ -1,11 +1,11 @@
+'use strict';
+
 (function(root, factory) {
 
-	'use strict';
-
 	if (typeof define === 'function' && define.amd) {
-		define(['moment'], factory);
+		define(['moment-timezone'], factory);
 	} else if (typeof module === 'object' && module.exports) {
-		module.exports = factory(require('moment'));
+		module.exports = factory(require('moment-timezone'));
 	} else {
 		factory(root.moment);
 	}
