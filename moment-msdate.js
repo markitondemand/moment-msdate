@@ -1,15 +1,22 @@
 'use strict';
 
-(function() {
+(function(root, factory) {
+
+	if (typeof define === 'function' && define.amd) {
+		define(['moment-timezone'], factory);
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory(require('moment-timezone'));
+	} else {
+		factory(root.moment);
+	}
+
+}(this, function(moment) {
 
 	/**
 	* Constants
 	*/
-	const DAY_MILLISECONDS = 86400000;
-	const MINUTE_MILLISECONDS = 60000;
-	const MS_DAY_OFFSET = 25569;
-
-	const moment = (typeof require !== 'undefined' && require !== null) && !require.amd ? require('moment-timezone') : this.moment;
+	var DAY_MILLISECONDS = 86400000;
+	var MS_DAY_OFFSET = 25569;
 
 	/**
 	 * @description To JavaScript date from OLE Automation date
@@ -19,8 +26,8 @@
 	 * @returns moment
 	 */
 	moment.fromOADate = function(msDate, offsetToUtcInMinutes) {
-		let jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
-		const tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
+		var jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
+		var tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
 		jO = new Date((((msDate - MS_DAY_OFFSET) + (tz / (60 * 24))) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		return moment(jO);
 	};
@@ -32,9 +39,9 @@
 	 * @returns Floating-point number, e.g., 41502.558798240745
 	 */
 	moment.fn.toOADate = function(jsDateInput) {
-		const jsDate = jsDateInput || this._d || new Date();
-		const timezoneOffset = jsDate.getTimezoneOffset() / (60 * 24);
-		const msDateObj = (jsDate.getTime() / DAY_MILLISECONDS) + (MS_DAY_OFFSET - timezoneOffset);
+		var jsDate = jsDateInput || this._d || new Date();
+		var timezoneOffset = jsDate.getTimezoneOffset() / (60 * 24);
+		var msDateObj = (jsDate.getTime() / DAY_MILLISECONDS) + (MS_DAY_OFFSET - timezoneOffset);
 		return msDateObj;
 	};
 
@@ -47,12 +54,11 @@
 	* Returns a UTC Moment object instance
 	*/
 	moment.fromOADateWithZone = function(msDate, timeZone) {
-		const jsTicks = (msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS;
-		const offset = moment.tz(timeZone).utcOffset() * MINUTE_MILLISECONDS;
 		if (timeZone) {
-			return moment.tz(jsTicks - offset, timeZone).utc();
+			return moment.fromOADate(msDate).tz(timeZone);
 		}
-		return moment.utc(jsTicks);
+
+		return moment.fromOADate(msDate);
 	};
 
 	/**
@@ -60,12 +66,9 @@
 	* Returns an OLE Automation date in the form of a double
 	*/
 	moment.fn.toOADateWithZone = function() {
-		const nMsDate = (this.valueOf() / DAY_MILLISECONDS) + MS_DAY_OFFSET;
+		var nMsDate = (this.valueOf() / DAY_MILLISECONDS) + MS_DAY_OFFSET;
 		return nMsDate;
 	};
 
-	if ((typeof module !== 'undefined' && module !== null ? module.exports : undefined) != null) {
-		module.exports = moment;
-	}
-
-}).call(this);
+	return moment;
+}));
