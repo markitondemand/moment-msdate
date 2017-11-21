@@ -57,7 +57,7 @@
 	const fromOADateOffsetToUtcByTimezone = function(oaDate, timezone) {
 		if (!moment.tz.zone(timezone)) { throw new Error('timezone provided is not available in moment-timezone.js', 'moment-msdate.js', 59); }
 		const ticks = oaDateToTicks(oaDate);
-		const offset = moment.tz(timezone).utcOffset() * MINUTE_MILLISECONDS;
+		const offset = moment(ticks).tz(timezone).utcOffset() * MINUTE_MILLISECONDS;
 		return moment.tz(ticks - offset, timezone).utc();
 	};
 
