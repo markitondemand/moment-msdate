@@ -1,7 +1,7 @@
 'use strict';
 
-var assert = require('assert');
-var moment = require('../moment-msdate');
+const assert = require('assert');
+const moment = require('../moment-msdate');
 
 describe('moment-msdate', () => {
 	console.log('********************************************************');
