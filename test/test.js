@@ -69,23 +69,25 @@ describe('moment-msdate: moment.fn.toOADate', function() {
 describe('moment-msdate: moment.fromOADateWithZone', function() {
 	it('should convert an OLE automation date with an ET timezone to a utc moment', function() {
 		// 1/19/2017 8:02:26 PM
+		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/New_York');
 		var date = moment.fromOADateWithZone('42754.835023148145', 'America/New_York');
-		assert.equal('01/19/2017 08:02', date.format('MM/DD/YYYY hh:mm'));
+		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
 		assert.equal('EST', date.format('zz'));
 	});
 
 	it('should convert an OLE automation date with a CT timezone to a utc moment', function() {
 		// 1/19/2017 8:02:26 PM
+		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/Chicago');
 		var date = moment.fromOADateWithZone('42754.835023148145', 'America/Chicago');
-		assert.equal('01/19/2017 07:02', date.format('MM/DD/YYYY hh:mm'));
+		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
 		assert.equal('CST', date.format('zz'));
 	});
 
 	it('should convert an OLE automation date with a MT timezone to a utc moment', function() {
 		// 1/19/2017 8:02:26 PM
 		var date = moment.fromOADateWithZone('42754.835023148145', 'America/Denver');
-
-		assert.equal('01/19/2017 06:02', date.format('MM/DD/YYYY hh:mm'));
+		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/Denver');
+		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
 		assert.equal('MST', date.format('zz'));
 	});
 
