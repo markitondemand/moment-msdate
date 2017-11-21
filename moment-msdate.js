@@ -10,9 +10,8 @@
 		factory(root.moment, root.moment.tz);                                    // Browser
 	}
 }(this, (moment, momentTimezone) => {
-	const DAY_MILLISECONDS = 86400000;
-	const MINUTE_MILLISECONDS = 60000;
-	const MS_DAY_OFFSET = 25569;
+	var DAY_MILLISECONDS = 86400000;
+	var MS_DAY_OFFSET = 25569;
 
 	const momentVersion = moment.version.split('.');
 	const major = +momentVersion[0];
