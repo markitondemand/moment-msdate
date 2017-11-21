@@ -16,7 +16,6 @@
 	* Constants
 	*/
 	const DAY_MILLISECONDS = 86400000;
-	const MINUTE_MILLISECONDS = 60000;
 	const MS_DAY_OFFSET = 25569;
 
 	/**
@@ -55,12 +54,11 @@
 	* Returns a UTC Moment object instance
 	*/
 	moment.fromOADateWithZone = function(msDate, timeZone) {
-		const jsTicks = (msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS;
-		const offset = moment.tz(timeZone).utcOffset() * MINUTE_MILLISECONDS;
 		if (timeZone) {
-			return moment.tz(jsTicks - offset, timeZone).utc();
+			return moment.fromOADate(msDate).utc().tz(timeZone);
 		}
-		return moment.utc(jsTicks);
+
+		return moment.fromOADate(msDate).utc();
 	};
 
 	/**
