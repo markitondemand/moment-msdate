@@ -85,10 +85,11 @@ describe('moment-msdate: moment.fromOADateWithZone', () => {
 		assert.equal('2017-01-20T03:02:25.999Z', date.toISOString());
 	});
 
-	it('should convert an OLE automation date with a MT timezone to a utc moment during DST', () => {
-		// 7/7/2010 12:00:00 AM
-		const date = moment.fromOADateWithZone('40366', 'America/Denver');
-		assert.equal('2010-07-07T06:00:00.000Z', date.toISOString());
+	it('should convert an OLE automation date with a MT timezone in DST to a utc moment', () => {
+		// 7/7/2010 10:36 AM - actually occurs during DST (the UTC conversion takes DST back off)
+		const jsDateConverted = moment.tz(new Date('7/7/2010 10:36 AM'), 'America/Denver').utc();
+		const date = moment.fromOADateWithZone('40366.4', 'America/Denver');
+		assert.equal(jsDateConverted.toISOString(), date.toISOString());
 	});
 });
 
