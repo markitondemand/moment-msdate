@@ -9,7 +9,8 @@
 	} else {
 		factory(root.moment, root.moment.tz);                                    // Browser
 	}
-}(this, (moment, momentTimezone) => {
+}(this, function(moment, momentTimezone) {
+	var MINUTE_MILLISECONDS = 60 * 1000;
 	var DAY_MILLISECONDS = 86400000;
 	var MS_DAY_OFFSET = 25569;
 
