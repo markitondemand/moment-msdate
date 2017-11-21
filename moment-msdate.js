@@ -15,8 +15,8 @@
 	/**
 	* Constants
 	*/
-	const DAY_MILLISECONDS = 86400000;
-	const MS_DAY_OFFSET = 25569;
+	var DAY_MILLISECONDS = 86400000;
+	var MS_DAY_OFFSET = 25569;
 
 	/**
 	 * @description To JavaScript date from OLE Automation date
@@ -27,7 +27,7 @@
 	 */
 	moment.fromOADate = function(msDate, offsetToUtcInMinutes) {
 		var jO = new Date(((msDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
-		const tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
+		var tz = isNaN(parseInt(offsetToUtcInMinutes, 10)) ? jO.getTimezoneOffset() : offsetToUtcInMinutes;
 		jO = new Date((((msDate - MS_DAY_OFFSET) + (tz / (60 * 24))) * DAY_MILLISECONDS) + (msDate >= 0.0 ? 0.5 : -0.5));
 		return moment(jO);
 	};
@@ -39,9 +39,9 @@
 	 * @returns Floating-point number, e.g., 41502.558798240745
 	 */
 	moment.fn.toOADate = function(jsDateInput) {
-		const jsDate = jsDateInput || this._d || new Date();
-		const timezoneOffset = jsDate.getTimezoneOffset() / (60 * 24);
-		const msDateObj = (jsDate.getTime() / DAY_MILLISECONDS) + (MS_DAY_OFFSET - timezoneOffset);
+		var jsDate = jsDateInput || this._d || new Date();
+		var timezoneOffset = jsDate.getTimezoneOffset() / (60 * 24);
+		var msDateObj = (jsDate.getTime() / DAY_MILLISECONDS) + (MS_DAY_OFFSET - timezoneOffset);
 		return msDateObj;
 	};
 
@@ -66,7 +66,7 @@
 	* Returns an OLE Automation date in the form of a double
 	*/
 	moment.fn.toOADateWithZone = function() {
-		const nMsDate = (this.valueOf() / DAY_MILLISECONDS) + MS_DAY_OFFSET;
+		var nMsDate = (this.valueOf() / DAY_MILLISECONDS) + MS_DAY_OFFSET;
 		return nMsDate;
 	};
 
