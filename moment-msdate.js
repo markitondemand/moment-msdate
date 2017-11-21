@@ -55,10 +55,10 @@
 	*/
 	moment.fromOADateWithZone = function(msDate, timeZone) {
 		if (timeZone) {
-			return moment.fromOADate(msDate).utc().tz(timeZone);
+			return moment.fromOADate(msDate).tz(timeZone);
 		}
 
-		return moment.fromOADate(msDate).utc();
+		return moment.fromOADate(msDate);
 	};
 
 	/**
