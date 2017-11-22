@@ -5,6 +5,6 @@
   "rules":{
     // assert.throws doesnt respond to lambda syntax
     "prefer-arrow-callback": 0,
-    "vars-on-top": 0
+    "no-console": 0
   }
 }

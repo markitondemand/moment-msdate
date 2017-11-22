@@ -1,10 +1,10 @@
 {
   "name": "moment-msdate",
-  "version": "0.2.3",
+  "version": "2.0.1-0",
   "description": "Adds OLE Automation parsing capabilities to Moment.js",
   "main": "moment-msdate.js",
   "scripts": {
-    "lint": "eslint ./test ./moment-msdate.js",
+    "lint": "eslint ./test ./moment-msdate.js !./node-modules",
     "mocha": "mocha --check-leaks --reporter=spec ./test",
     "test": "npm run lint && npm run mocha"
   },
@@ -51,6 +51,10 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^19.0.0",
+    "grunt-mocha-test": "^0.13.2",
     "mocha": "^3.2.0"
   }
 }

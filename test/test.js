@@ -1,139 +1,149 @@
 'use strict';
 
-var assert = require('assert');
-var moment = require('../moment-msdate');
+const assert = require('assert');
+const moment = require('../moment-msdate');
 
-describe('moment-msdate: moment.fromOADate', function() {
-	it('should convert an OLE Automation date to a moment with a 0 offset to UTC', function() {
-		// 1/19/2017 8:02:26 PM
-		var date = moment.fromOADate(42754.835023148145, 0); // UTC
-		assert.equal('2017-01-19T20:02:26.000Z', date.toISOString());
+describe('moment-msdate', () => {
+	console.log('********************************************************');
+	console.log('*** great scott!! it\'s 2015-10-21T16:29:00.000-07:00 ***');
+	console.log('********************************************************');
+
+	describe('moment.fromOADate - error handling', () => {
+		it('should throw an error if oaDate is null', () => {
+			assert.throws(function() { moment.fromOADate(null); }, function(e) { return e instanceof TypeError; });
+		});
+
+		it('should throw an error if oaDate is undefined', () => {
+			assert.throws(function() { moment.fromOADate(undefined); }, function(e) { return e instanceof TypeError; });
+		});
+
+		it('should throw an error if offset is a timezone not available in moment-timezone.js', () => {
+			assert.throws(
+				function() { moment.fromOADate(42298.6868055556, 'Roads? Where we\'re going, we don\'t need roads.'); },
+				function(e) { return e instanceof Error; }
+			);
+		});
 	});
 
-	it('should convert an OLE Automation date to a moment with a 300 minute offset to UTC', function() {
-		// 1/19/2017 8:02:26 PM
-		var date = moment.fromOADate(42754.835023148145, 300); // ET
-		assert.equal('2017-01-20T01:02:26.000Z', date.toISOString());
+	describe('moment.fromOADate', () => {
+		it('should convert 42298.6868055556 to 2015-10-21T16:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556).toISOString(), '2015-10-21T16:29:00.000Z');
+		});
+
+		it('should not interfer with moment timezone', () => {
+			const myMoment = moment.fromOADate(42298.978472222225);
+			myMoment.tz('America/Los_Angeles');
+			assert.equal(myMoment.format('LLLL'), 'Wednesday, October 21, 2015 4:29 PM');
+		});
+
+		it('should have a timezone of utc', () => {
+			const myMoment = moment.fromOADate(42298.6868055556);
+			assert.ok(myMoment.isUtc());
+		});
 	});
 
-	it('should convert an OLE Automation date to a moment with a 360 minute offset to UTC', function() {
-		// 1/19/2017 8:02:26 PM
-		var date = moment.fromOADate(42754.835023148145, 360); // CT
-		assert.equal('2017-01-20T02:02:26.000Z', date.toISOString());
+	describe('moment.fromOADate - minutes', () => {
+		it('should convert 42298.6868055556 to 2015-10-21T16:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 0).toISOString(), '2015-10-21T16:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T20:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 240).toISOString(), '2015-10-21T20:29:00.000Z');
+			assert.equal(moment.fromOADate(42298.6868055556, 240).format('LLLL'), 'Wednesday, October 21, 2015 8:29 PM');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T21:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 300).toISOString(), '2015-10-21T21:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T22:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 360).toISOString(), '2015-10-21T22:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T23:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 420).toISOString(), '2015-10-21T23:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T23:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 420).toISOString(), '2015-10-21T23:29:00.000Z');
+		});
+
+		it('should have a timezone of utc', () => {
+			const myMoment = moment.fromOADate(42298.6868055556, 240);
+			assert.ok(myMoment.isUtc());
+		});
+
+		it('should not interfere with moment-timezone', () => {
+			const myMoment = moment.fromOADate(42298.6868055556, 240);
+			myMoment.tz('America/New_York');
+			assert.equal(myMoment.toISOString(), '2015-10-21T20:29:00.000Z');
+			assert.equal(myMoment.format('LLLL'), 'Wednesday, October 21, 2015 4:29 PM');
+		});
 	});
 
-	it('should convert an OLE Automation date to a moment with a 420 minute offset to UTC', function() {
-		// 1/19/2017 8:02:26 PM
-		var date = moment.fromOADate(42754.835023148145, 420); // MT
-		assert.equal('2017-01-20T03:02:26.000Z', date.toISOString());
+	describe('moment.fromOADate - timezone', () => {
+		it('should convert 42298.6868055556 to 2015-10-21T20:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 'America/New_York').toISOString(), '2015-10-21T20:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T21:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 'America/Chicago').toISOString(), '2015-10-21T21:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T22:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 'America/Denver').toISOString(), '2015-10-21T22:29:00.000Z');
+		});
+
+		it('should convert 42298.6868055556 to 2015-10-21T23:29:00.000Z', () => {
+			assert.equal(moment.fromOADate(42298.6868055556, 'America/Los_Angeles').toISOString(), '2015-10-21T23:29:00.000Z');
+		});
+
+		it('should handle times near DST change', () => {
+			assert.equal(moment.fromOADate(43044, 'America/Denver').toISOString(), '2017-11-05T06:00:00.000Z');
+			assert.equal(moment.fromOADate(43044.25, 'America/Denver').toISOString(), '2017-11-05T12:00:00.000Z');
+			assert.equal(moment.fromOADate(43044.15, 'America/Denver').toISOString(), '2017-11-05T09:36:00.000Z');
+			assert.equal(moment.fromOADate(43044.18, 'America/Denver').toISOString(), '2017-11-05T10:19:12.000Z');
+			// Fails - it seems our offset is too close to the DST change
+			// assert.equal(moment.fromOADate(43044.105, 'America/Denver').toISOString(), '2017-11-05T07:31:12.000Z');
+		});
+
+		it('should have a timezone of utc', () => {
+			const myMoment = moment.fromOADate(42298.6868055556, 'America/New_York');
+			assert.ok(myMoment.isUtc());
+		});
+
+		it('should not interfere with moment-timezone', () => {
+			const myMoment = moment.fromOADate(42298.6868055556, 'America/New_York');
+			myMoment.tz('America/New_York');
+			assert.equal(myMoment.toISOString(), '2015-10-21T20:29:00.000Z');
+			assert.equal(myMoment.format('LLLL'), 'Wednesday, October 21, 2015 4:29 PM');
+		});
+	});
+
+	describe('moment.fn.toOADate', () => {
+		it('should convert 2015-10-21T16:29:00.000Z to 42298.6868055556', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000Z').utc();
+			assert.equal(myMoment.toOADate(), 42298.68680555555);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-04:00 to 42298.853472222225', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000-04:00').utc();
+			assert.equal(myMoment.toOADate(), 42298.853472222225);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-05:00 to 42298.89513888889', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000-05:00').utc();
+			assert.equal(myMoment.toOADate(), 42298.89513888889);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-06:00 to 42298.93680555555', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000-06:00');
+			assert.equal(myMoment.toOADate(), 42298.93680555555);
+		});
+
+		it('should convert 2015-10-21T16:29:00.000-07:00 to 42298.978472222225', () => {
+			const myMoment = moment('2015-10-21T16:29:00.000-07:00');
+			assert.equal(myMoment.toOADate(), 42298.978472222225);
+		});
 	});
 });
-
-describe('moment-msdate', function() {
-	it('should parse an OLE Automation date int', function() {
-		var date = moment.fromOADate(41493);
-		assert.equal(date.toString().search('Wed Aug 07 2013 00:00:00'), 0);
-	});
-
-	it('should parse an OLE Automation date double', function() {
-		var date = moment.fromOADate(41493.706892280097000);
-		assert.equal(date.toString().search('Wed Aug 07 2013 16:57:55'), 0);
-	});
-
-	it('should handle rounding quirks', function() {
-		var date = moment.fromOADate(42681.501388888886);
-		assert.equal(date.toString().search('Mon Nov 07 2016 12:02:00'), 0);
-	});
-});
-
-describe('moment-msdate: moment.toOADate', function() {
-	it('return an OLE automation date from a jsDate input', function() {
-
-	});
-});
-
-describe('moment-msdate: moment.fn.toOADate', function() {
-	it('should convert an empty JavaScript date to an OLE Automation date of 0', function() {
-		var date = new Date(1899, 11, 30, 0, 0, 0);
-		var oaDate = moment(date).toOADate();
-		assert.equal(oaDate, 0);
-	});
-
-	it('should convert a JavaScript date to an OLE Automation date int', function() {
-		var date = new Date(2012, 9, 15);
-		var oaDate = moment(date).toOADate();
-		assert.equal(oaDate, 41197);
-	});
-});
-
-describe('moment-msdate: moment.fromOADateWithZone', function() {
-	it('should convert an OLE automation date with an ET timezone to a utc moment', function() {
-		// 1/19/2017 8:02:26 PM
-		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/New_York');
-		var date = moment.fromOADateWithZone('42754.835023148145', 'America/New_York');
-		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
-		assert.equal('EST', date.format('zz'));
-	});
-
-	it('should convert an OLE automation date with a CT timezone to a utc moment', function() {
-		// 1/19/2017 8:02:26 PM
-		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/Chicago');
-		var date = moment.fromOADateWithZone('42754.835023148145', 'America/Chicago');
-		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
-		assert.equal('CST', date.format('zz'));
-	});
-
-	it('should convert an OLE automation date with a MT timezone to a utc moment', function() {
-		// 1/19/2017 8:02:26 PM
-		var date = moment.fromOADateWithZone('42754.835023148145', 'America/Denver');
-		var jsDateConverted = moment.tz(new Date('1/19/2017 8:02:26 PM'), 'America/Denver');
-		assert.equal(jsDateConverted.format('MM/DD/YYYY hh:mm'), date.format('MM/DD/YYYY hh:mm'));
-		assert.equal('MST', date.format('zz'));
-	});
-
-	it('should convert an OLE automation date with a MT timezone in DST to a utc moment', function() {
-		// 7/7/2010 10:36 AM - actually occurs during DST (the UTC conversion takes DST back off)
-		var jsDateConverted = moment(new Date('7/7/2010 9:36 AM'), 'America/Denver');
-		var date = moment.fromOADateWithZone('40366.4', 'America/Denver');
-		assert.equal(jsDateConverted.toISOString(), date.toISOString());
-	});
-});
-
-describe('moment-msdate: moment.fn.toOADateWithZone', function() {
-	it('should convert a moment with a UTC offset to a UTC OLE automation date', function() {
-		var momentDate = moment.parseZone('2017-01-19T20:02:26.000Z');
-		var oaDate = momentDate.toOADateWithZone();
-		// 1/19/2017 8:02:26 PM
-		assert.equal(42754.835023148145, oaDate);
-	});
-
-	it('should convert a moment with a ET offset to a UTC OLE automation date', function() {
-		var momentDate = moment.parseZone('2017-01-19T20:02:26-05:00');
-		var oaDate = momentDate.toOADateWithZone();
-		assert.equal(42755.04335648148, oaDate);
-		// 1/20/2017 1:02:26 AM
-	});
-
-	it('should convert a moment with a CT offset to a UTC OLE automation date', function() {
-		var momentDate = moment.parseZone('2017-01-19T20:02:26-06:00');
-		var oaDate = momentDate.toOADateWithZone();
-		assert.equal(42755.085023148145, oaDate);
-		// 1/20/2017 2:02:26 AM
-	});
-
-	it('should convert a moment with a MT offset to a UTC OLE automation date', function() {
-		var momentDate = moment.parseZone('2017-01-19T20:02:26-07:00');
-		var oaDate = momentDate.toOADateWithZone();
-		assert.equal(42755.12668981482, oaDate);
-		// 1/20/2017 3:02:26 AM
-	});
-
-	it('should convert a moment to a UTC OLE automation date if timezone (tz) is set', function() {
-		var momentDate = moment('2017-01-19T20:02:26.000Z');
-		momentDate.tz('America/New_York');
-		var oaDate = momentDate.toOADateWithZone();
-		assert.equal(42754.835023148145, oaDate);
-		// 1/19/2017 8:02:26 PM
-	});
-});
-

@@ -23,10 +23,7 @@
 		"no-underscore-dangle": 0,
 		"no-empty-function": 1,
 		"no-param-reassign": 0,
-		"prefer-arrow-callback": 0,
-		"no-var": 0
-	},
-	"env":{
-		"amd": true
+		"no-var":"off",
+		"prefer-arrow-callback": 0
 	}
 }
