@@ -19,7 +19,7 @@
 	const minor = +momentVersion[1];
 
 	if (major < 2 || (major === 2 && minor < 6)) {
-		throw new Error(`moment-msdate requires Moment.js >= 2.6.0. You are using Moment.js ${moment.version}. See momentjs.com`);
+		throw new Error('moment-msdate requires Moment.js >= 2.6.0. You are using Moment.js ' + moment.version + '. See momentjs.com');
 	}
 
 	if (!momentTimezone || !moment.tz) {
