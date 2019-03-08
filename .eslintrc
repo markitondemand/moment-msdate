@@ -24,6 +24,7 @@
 		"no-empty-function": 1,
 		"no-param-reassign": 0,
 		"no-var":"off",
-		"prefer-arrow-callback": 0
+		"prefer-arrow-callback": 0,
+		"prefer-template": 0
 	}
 }
