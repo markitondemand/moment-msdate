@@ -27,11 +27,25 @@
 	}
 
 	const oaDateToTicks = function(oaDate) {
-		return ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS) + (oaDate >= 0.0 ? 0.5 : -0.5);
+		var ticks = ((oaDate - MS_DAY_OFFSET) * DAY_MILLISECONDS);
+		if (oaDate < 0) {
+			const frac = (oaDate - Math.trunc(oaDate)) * DAY_MILLISECONDS;
+			if (frac !== 0) {
+				ticks -= frac * 2;
+			}
+		}
+		return ticks;
 	};
 
 	const ticksToOADate = function(ticks) {
-		return (ticks / DAY_MILLISECONDS) + MS_DAY_OFFSET;
+		var oad = (ticks / DAY_MILLISECONDS) + MS_DAY_OFFSET;
+		if (oad < 0) {
+			const frac = oad - Math.trunc(oad);
+			if (frac !== 0) {
+				oad = Math.ceil(oad) - frac - 2;
+			}
+		}
+		return oad;
 	};
 
 	/**

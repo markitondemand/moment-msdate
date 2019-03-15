@@ -3,6 +3,13 @@
 const assert = require('assert');
 const moment = require('../moment-msdate');
 
+function testBothDirections(iso, oad) {
+	const isoMoment = moment.fromOADate(oad).toISOString();
+	const oadMoment = moment(iso).utc().toOADate();
+	assert.equal(oadMoment, oad);
+	assert.equal(isoMoment, iso);
+}
+
 describe('moment-msdate', () => {
 	console.log('********************************************************');
 	console.log('*** great scott!! it\'s 2015-10-21T16:29:00.000-07:00 ***');
@@ -144,6 +151,76 @@ describe('moment-msdate', () => {
 		it('should convert 2015-10-21T16:29:00.000-07:00 to 42298.978472222225', () => {
 			const myMoment = moment('2015-10-21T16:29:00.000-07:00');
 			assert.equal(myMoment.toOADate(), 42298.978472222225);
+		});
+	});
+
+	describe('Negative OADates and edge conditions', () => {
+		it('OADate: 27 December 1899, midnight', () => {
+			testBothDirections('1899-12-27T00:00:00.000Z', -3.0);
+		});
+
+		it('OADate: 28 December 1899, noon', () => {
+			testBothDirections('1899-12-28T12:00:00.000Z', -2.5);
+		});
+
+		it('OADate: Jody 29 December 1899, 6:00 PM', () => {
+			testBothDirections('1899-12-29T18:00:00.000Z', -1.75);
+		});
+
+		it('OADate: 29 December, noon', () => {
+			testBothDirections('1899-12-29T12:00:00.000Z', -1.5);
+		});
+
+		it('OADate: 29 December 1899, 6:00 AM', () => {
+			testBothDirections('1899-12-29T06:00:00.000Z', -1.25);
+		});
+
+		it('OADate: 29 December 1899, midnight', () => {
+			testBothDirections('1899-12-29T00:00:00.000Z', -1.0);
+		});
+
+		it('OADate: 30 December 1899, midnight', () => {
+			testBothDirections('1899-12-30T00:00:00.000Z', 0.0);
+		});
+
+		it('OADate: 30 December 1899, 6:00 am', () => {
+			testBothDirections('1899-12-30T06:00:00.000Z', 0.25);
+		});
+
+		it('OADate: 30 December 1899, noon', () => {
+			testBothDirections('1899-12-30T12:00:00.000Z', 0.50);
+		});
+
+		it('OADate: 30 December 1899, noon', () => {
+			testBothDirections('1899-12-30T18:00:00.000Z', 0.75);
+		});
+
+		it('OADate: 31 December 1899, midnight', () => {
+			testBothDirections('1899-12-31T00:00:00.000Z', 1.0);
+		});
+
+		it('OADate: 1 January 1900, 6:00 AM', () => {
+			testBothDirections('1900-01-01T06:00:00.000Z', 2.25);
+		});
+
+		it('OADate: 2 January 1900, midnight', () => {
+			testBothDirections('1900-01-02T00:00:00.000Z', 3.0);
+		});
+
+		it('OADate: 4 January 1900, midnight', () => {
+			testBothDirections('1900-01-04T00:00:00.000Z', 5.0);
+		});
+
+		it('OADate: 4 January 1900, 6:00 AM', () => {
+			testBothDirections('1900-01-04T06:00:00.000Z', 5.25);
+		});
+
+		it('OADate: 4 January 1900, noon', () => {
+			testBothDirections('1900-01-04T12:00:00.000Z', 5.5);
+		});
+
+		it('OADate: 4 January 1900, 9:00 PM', () => {
+			testBothDirections('1900-01-04T21:00:00.000Z', 5.875);
 		});
 	});
 });
