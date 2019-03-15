@@ -3,11 +3,11 @@
 (function(root, factory) {
 	/*global define*/
 	if (typeof define === 'function' && define.amd) {
-		define(['moment', 'moment-timezone'], factory);                          // AMD
+		define(['moment', 'moment-timezone'], factory); // AMD
 	} else if (typeof module === 'object' && module.exports) {
 		module.exports = factory(require('moment'), require('moment-timezone')); // Node
 	} else {
-		factory(root.moment, root.moment.tz);                                    // Browser
+		factory(root.moment, root.moment.tz); // Browser
 	}
 }(this, function(moment, momentTimezone) {
 	var MINUTE_MILLISECONDS = 60 * 1000;
@@ -69,7 +69,9 @@
 	 * @returns moment
 	 */
 	const fromOADateOffsetToUtcByTimezone = function(oaDate, timezone) {
-		if (!moment.tz.zone(timezone)) { throw new Error('timezone provided is not available in moment-timezone.js', 'moment-msdate.js', 59); }
+		if (!moment.tz.zone(timezone)) {
+			throw new Error('timezone provided is not available in moment-timezone.js', 'moment-msdate.js', 59);
+		}
 		const ticks = oaDateToTicks(oaDate);
 		const offset = moment(ticks).tz(timezone).utcOffset() * MINUTE_MILLISECONDS;
 		return moment.tz(ticks - offset, timezone).utc();
@@ -83,14 +85,20 @@
 	 * @returns moment
 	 */
 	moment.fromOADate = function(oaDate, offset) {
-		if (isNaN(parseInt(oaDate, 10))) { throw new TypeError('fromOADate requires an oaDate that is not null or undefined', 'moment-msdate.js', 72); }
+		if (Number.isNaN(parseInt(oaDate, 10))) {
+			throw new TypeError('fromOADate requires an oaDate that is not null or undefined', 'moment-msdate.js', 72);
+		}
 
 		/* no offset */
-		if (!offset) { return fromOADateOffsetToUtcByMinutes(oaDate, 0); }
+		if (!offset) {
+			return fromOADateOffsetToUtcByMinutes(oaDate, 0);
+		}
 
 		/* timezone */
 		const parsedOffset = parseInt(offset, 10);
-		if (isNaN(parsedOffset)) { return fromOADateOffsetToUtcByTimezone(oaDate, offset); }
+		if (Number.isNaN(parsedOffset)) {
+			return fromOADateOffsetToUtcByTimezone(oaDate, offset);
+		}
 
 		/* minutes */
 		return fromOADateOffsetToUtcByMinutes(oaDate, parsedOffset);
